@@ -5,6 +5,7 @@ Erstellt von [Benjamin Matzmorr/Stadtverwaltung-Castrop-Rauxel].
 Dieses Projekt steht unter der [MIT License](LICENSE).
 
 **MeetGuide** ist ein schlankes, PHP-basiertes Digital-Signage-System, das speziell für die Anzeige von Raumbelegungen und Orientierungshilfen (Wayfinding) in öffentlichen Gebäuden, Behörden oder Bürokomplexen entwickelt wurde.
+<img width="1253" height="900" alt="meetguide" src="https://github.com/user-attachments/assets/ad26fd21-89d2-4e77-82eb-54e23af51bb0" />
 
 ## ✨ Features
 
@@ -43,4 +44,5 @@ Dieses Projekt steht unter der [MIT License](LICENSE).
 
 - Der Zugriff auf Konfigurationsdateien wird durch `.htaccess`-Regeln geschützt.
 ---
+
 Erstellt mit Fokus auf minimale Anforderungen, Performance und Benutzerfreundlichkeit.
