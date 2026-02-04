@@ -1,0 +1,313 @@
+     :root {
+            /* Standard-Werte (Dark) */
+            --bg-color: #050505; 
+            --card-bg: #1a1a1a;
+            --card-border: #333333;
+            --text-main: #ffffff;
+            --text-dim: #888888;
+            --text-title: #eeeeee;
+            --header-border: #333333;
+            --status-default-bg: #444444;
+            --accent-running: #ff3333;
+            --accent-soon: #ffaa00;
+            --accent-future: #008acf;
+        }
+
+        /* Light Mode Überschreibungen */
+        body.theme-light {
+            --bg-color: #f0f2f5; 
+            --card-bg: #ffffff;
+            --card-border: #dddddd;
+            --text-main: #1a1a1a;
+            --text-dim: #666666;
+            --text-title: #111111;
+            --header-border: #cccccc;
+            --status-default-bg: #dddddd;
+        }
+
+        body, html {
+            margin: 0; padding: 0;
+            background-color: var(--bg-color) !important;
+            color: var(--text-main);
+            font-family: 'Poppins', sans-serif;
+            height: 100vh;
+            overflow: hidden;
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+
+        #app { display: flex; flex-direction: column; padding: 20px; height: 100vh; box-sizing: border-box; }
+
+        .header { 
+            display: flex; justify-content: space-between; align-items: center; 
+            margin-bottom: 15px; border-bottom: 1px solid var(--header-border); 
+            padding-bottom: 15px; 
+        }
+        .header h1 { font-size: 2.5em;}
+
+        .header-left { display: flex; align-items: center; gap: 25px; }
+        .logo { height: 120px; width: auto; }
+        body.theme-light .logo { filter: brightness(0.2); } 
+
+        #clock { font-size: 3.5rem; font-weight: 700; padding-right: 20px; }
+
+        #meetingContainer { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(450px, 1fr)); 
+            gap: 20px; 
+            width: min(100%, 1500px); 
+            margin: 0 auto;
+            justify-content: center;
+            align-content: start;
+            
+        
+            /* WICHTIG: */
+            flex-grow: 0; 
+            flex-shrink: 0;
+            overflow: visible; /* Ändern von hidden auf visible */
+            order: 1;
+
+        }
+        .card {
+            background: var(--card-bg);
+            border: 2px solid var(--card-border);
+            border-radius: 16px;
+            padding: 25px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            color: var(--text-main);
+            transition: all 0.3s ease;
+        }
+
+        /* Korrigierte Running-Logik */
+        .card.running { border-color: var(--accent-running); }
+        body.theme-dark .card.running { background:var(--bg-color); }
+        body.theme-light .card.running { background: var(--card-bg); }
+        .card.other-day {
+            opacity: 0.6;
+            filter: saturate(70%);
+        }
+
+        .status-badge {
+            padding: 5px 15px; border-radius: 4px; font-size: 0.8rem;
+            font-weight: 900; text-transform: uppercase;
+            background: var(--status-default-bg); color: var(--text-main);
+            text-align: center;
+        }
+        .running .status-badge { background: var(--accent-running); color: #fff; }
+        .starting-soon .status-badge { background: var(--accent-soon); color: #000; }
+     
+        .time-box {
+            display: flex; flex-direction: column; justify-content: center;
+            min-width: 130px; 
+            margin-right: 25px;
+        }
+
+        .time {
+            font-size: 2.2rem; 
+            font-weight: 700; 
+            color: var(--text-main);
+            /* WICHTIG: Erlaubt Block-Verhalten für den Zeilenumbruch */
+            display: inline-block; 
+            line-height: 0.9; /* Verringert den Abstand zwischen Start- und Endzeit */
+            vertical-align: middle;
+        }
+
+
+        .time .time-till {
+            display: inline-block; /* Damit margin und vertical-align greifen */
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.5em; vertical-align: middle; opacity: 0.8; 
+        }
+
+        /* Zukünftige Termine (other-day) insgesamt etwas dezenter */
+        .card.other-day .time {
+            font-size: 1.5rem !important; /* Deutlich kleiner als die üblichen 2.2rem */
+            opacity: 0.9;
+        }
+
+        .card.other-day .date-label {
+            font-size: 0.8rem;
+        }
+
+        .date-label { color: var(--accent-future); font-weight: 700; font-size: 0.9rem; }
+        .heute {font-size:2em;}
+        .title { /* Minimum 1.2rem, bevorzugt 2vw, Maximum 2.5rem */
+                font-size: clamp(1.2rem, 1.5vw, 2rem); font-weight: 700; flex-grow: 1; color: var(--text-title); margin: 0 0px; }
+        .room-box {text-align: right;}
+        .room { font-size: 1.4rem; font-weight: 700; color: var(--text-main); }
+        .info-text { font-size: 0.9rem; color: var(--text-dim); font-style: italic; }
+
+        /* Listenansicht */
+        .layout-list #meetingContainer { display: flex;  flex-direction: column; max-width: 1500px; margin: 0 auto; gap: 15px; }
+        .layout-list .card { flex-direction: row; align-items: center; padding: 15px 30px; }
+        .layout-list .status-badge { margin-left: auto; margin-right: 20px; min-width: 110px; text-align: center; }
+        .layout-list .time-box {border-right: 2px solid var(--card-border);}
+
+        /* Container-Stabilität */
+        #meetingContainer {
+            position: relative; /* Wichtig für den absoluten Seiten-Indikator */
+            transition: min-height 0.3s ease;
+        }
+
+        /* Platz reservieren, wenn Termine da sind */
+        body.has-meetings #meetingContainer {
+            min-height: 500px; 
+        }
+
+        /* In der Liste brauchen wir meist mehr Platz */
+        body.has-meetings.layout-list #meetingContainer {
+            min-height: 550px;
+        }
+
+        /* Wenn leer, soll alles schrumpfen */
+        body.no-active-meetings #meetingContainer {
+            min-height: 0 !important;
+        }
+
+        /* Sanfter Einblende-Effekt für Karten */
+
+        @keyframes fadeIn {
+            from { 
+                opacity: 0; 
+                transform: translateY(10px); 
+            }
+            /* Wir definieren kein 'to' für opacity, 
+            damit der Browser den Wert aus der Klasse nimmt */
+            to { 
+                transform: translateY(0); 
+            }
+        }
+
+        .no-meetings {
+            text-align: center;
+            width: 100%;
+            font-size: 2rem; /* Größer, damit es über dem Large-Wayfinding auffällt */
+            color: var(--text-dim);
+            padding: 40px 0;
+            font-weight: 700;
+            grid-column: 1 / -1; /* Falls Grid aktiv ist */
+        }
+        /* 2. Wayfinding Standard */
+        #staticWayfinding {
+            display: none; 
+            margin-top: 20px;
+            padding: 25px;
+            background: var(--card-bg);
+            border: 2px solid var(--card-border);
+            border-top: 5px solid var(--accent-future);
+            border-radius: 20px;
+            flex-shrink: 0;
+            order: 2;
+        }
+
+
+        .wayfinding-header {
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: var(--accent-future);
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            order: -1;
+            text-align: center;
+        }
+        .wayfinding-grid {
+            display: grid;
+            gap: 25px;
+        }
+
+        /* Wenn nur ein Element da ist, soll es zentriert oder groß sein */
+        .wayfinding-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-left: 3px solid var(--card-border);
+            padding-left: 15px;
+        }
+
+        .wayfinding-item:first-child {
+            border-left: none;
+            padding-left: 0;
+        }
+        .wayfinding-item .floor {
+            font-weight: 900;
+            font-size: 1.2rem;
+            color: var(--text-main);
+            background: var(--status-default-bg);
+            padding: 5px 10px;
+            border-radius: 8px;
+            min-width: 60px;
+            text-align: center;
+        }
+
+        .wayfinding-item .dest {
+            /*font-size: 1rem;*/
+            font-size: clamp(1rem, 1.5vw, 1.8rem);
+            color: var(--accent-future);
+            line-height: 1.2;
+            font-weight: 600;
+        }
+
+        /* In der Listenansicht können wir das Wayfinding kompakter machen */
+        .layout-list #staticWayfinding {
+            margin-top: 30px;
+        }
+
+    /* 3. Wenn keine Termine da sind */
+    #staticWayfinding.empty-meetings {
+        display: flex !important; /* Erzwingt Anzeige */
+        flex-direction: column;
+        flex-grow: 1; /* NUR JETZT nimmt Wayfinding den restlichen Platz ein */
+        justify-content: flex-start;
+        padding: 20px 60px; /* Weniger Padding oben/unten */
+    }
+
+    /* Falls doch Termine da sind, soll der Container wachsen */
+    .layout-grid #meetingContainer:not(:empty) {
+        flex-grow: 1;
+    }
+    #staticWayfinding.empty-meetings .wayfinding-grid {
+        display: flex; /* Von Grid auf Flex umstellen für vertikale Liste */        
+        flex-direction: column-reverse;
+        gap: 20px; 
+        max-width: 1200px;
+        margin: 0 auto;
+        width: 100%;
+    }
+
+    #staticWayfinding.empty-meetings .wayfinding-item {
+        display: flex;
+        align-items: center;
+        gap: 30px;
+        border-left: 8px solid var(--accent-future); /* Akzentfarbe statt Grau */
+        padding: 5px;
+        background: rgba(255, 255, 255, 0.03); /* Leichter Hintergrund-Effekt */
+        border-radius: 0 20px 20px 0;
+    }
+
+    #staticWayfinding.empty-meetings .wayfinding-item .floor {
+        font-size: 2rem; /* Massive Stockwerks-Anzeige */
+        min-width: 180px;
+        padding: 20px;
+    }
+
+    #staticWayfinding.empty-meetings .wayfinding-item .dest {
+        font-size: 2.2rem; /* Sehr große Schrift für die Ziele */
+        font-weight: 700;
+        line-height: 1.1;
+    }
+
+    #staticWayfinding.empty-meetings .wayfinding-header {
+        font-size: 2.2rem;
+        text-align: center;
+        margin-bottom: 60px;
+    
+    }
+    body.no-active-meetings #meetingContainer {
+        min-height: 0 !important;
+    }
+    .terminpager {
+        text-align:center; color:var(--text-dim); padding:10px; font-weight:700; width: 100%; grid-column: 1 / -1;
+    }

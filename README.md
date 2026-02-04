@@ -1,2 +1,46 @@
-# MeetGuide
-MeetGuide ist ein PHP-basiertes Digital-Signage-System mit minimalen Anforderungen: Es kombiniert eine dynamische Raumbelegungsanzeige aus CalDAV-Kalendern mit einem statischen Wegweiser. Über ein Admin-Panel lassen sich Layouts, Themes und Anzeige-Limits pro Display individuell konfigurieren. 
+# MeetGuide 📅📍
+---
+### Autor
+Erstellt von [Benjamin Matzmorr/Stadtverwaltung-Castrop-Rauxel].
+Dieses Projekt steht unter der [MIT License](LICENSE).
+
+**MeetGuide** ist ein schlankes, PHP-basiertes Digital-Signage-System, das speziell für die Anzeige von Raumbelegungen und Orientierungshilfen (Wayfinding) in öffentlichen Gebäuden, Behörden oder Bürokomplexen entwickelt wurde.
+
+## ✨ Features
+
+- **Echtzeit-Synchronisation:** Automatische Abfrage von Terminen über CalDAV-Schnittstellen (z. B. Nextcloud, Baikal).
+- **Intelligentes Wayfinding:** Integrierte Liste für statische Etagen-Infos oder Wegweiser unterhalb der aktuellen Termine.
+- **Dynamisches Layout:** Wechselt automatisch zwischen Listen- und Grid-Ansicht und nutzt Paginierung bei vielen Terminen.
+- **Admin-Panel:** Komfortable Verwaltung von Kalenderquellen und Display-Konfigurationen über ein Web-Interface.
+- **Responsive Design:** Optimiert für große Info-Stelen und TV-Monitore mit automatischem Dark/Light-Mode.
+- **Anpassbare Limits:** Individuelle Einstellung, wie viele Termine pro Seite angezeigt werden sollen.
+
+## 🚀 Installation
+
+1. **Repository klonen/hochladen:**
+   Lade die Dateien auf deinen PHP-Webserver hoch.
+   
+2. **Voraussetzungen:**
+   - PHP 7.4 oder höher
+   - Webserver (Apache mit `.htaccess` Support empfohlen)
+   - Schreibrechte für den Ordner `/cache` und `/config`
+
+3. **Konfiguration:**   
+   - Trage deine Zugangsdaten für den Adminbereich in auth_check.php ein bzw. ändere es.
+   -  Google Font und Bootstrap werden aus CDN geladen - ggf. ändern wenn IP-Adressen nicht ins Ausland gehen sollen.
+
+4. **Einrichtung:**
+   - Rufe `admin.php` auf, um deine ersten Kalender-Accounts und Displays anzulegen.
+   - Die Anzeige erfolgt über `display.php?id=DEINE_ID`.
+
+## 🛠 Technologien
+
+- **Backend:** PHP (für API-Anbindung und Datenverarbeitung)
+- **Frontend:** HTML5, CSS3 (Flexbox/Grid), JavaScript (ES6)
+- **Styling:** Bootstrap 5 für das Admin-Panel, Custom CSS mit CSS-Variables für die Dashboards.
+
+## 🔒 Sicherheit
+
+- Der Zugriff auf Konfigurationsdateien wird durch `.htaccess`-Regeln geschützt.
+---
+Erstellt mit Fokus auf minimale Anforderungen, Performance und Benutzerfreundlichkeit.
