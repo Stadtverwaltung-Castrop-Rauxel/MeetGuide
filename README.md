@@ -6,6 +6,7 @@ Dieses Projekt steht unter der [MIT License](LICENSE).
 
 **MeetGuide** ist ein schlankes, PHP-basiertes Digital-Signage-System, das speziell für die Anzeige von Raumbelegungen und Orientierungshilfen (Wayfinding) in öffentlichen Gebäuden, Behörden oder Bürokomplexen entwickelt wurde.
 <img width="1253" height="900" alt="meetguide" src="https://github.com/user-attachments/assets/ad26fd21-89d2-4e77-82eb-54e23af51bb0" />
+<img width="1174" height="847" alt="image" src="https://github.com/user-attachments/assets/a9d50989-57ec-400a-9ff8-8443a9bd97c3" />
 
 ## ✨ Features
 
@@ -46,3 +47,4 @@ Dieses Projekt steht unter der [MIT License](LICENSE).
 ---
 
 Erstellt mit Fokus auf minimale Anforderungen, Performance und Benutzerfreundlichkeit.
+
